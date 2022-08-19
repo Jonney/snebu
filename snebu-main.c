@@ -72,6 +72,7 @@ int main(int argc, char **argv)
 	{ "newbackup", &newbackup, 1 },
 	{ "submitfiles", &submitfiles, 0 },
 	{ "listbackups", &listbackups, 1 },
+	{ "list", &listbackups, 1 },
 	{ "restore", &restore, 1 },
 	{ "expire", &expire, 1 },
 	{ "purge", &purge, 1 },
