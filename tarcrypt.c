@@ -39,7 +39,7 @@
 
 extern char *saved_passwords;
 
-char *itoa(char *s, int n);
+char *itoa_(char *s, int n);
 
 int main(int argc, char **argv)
 {
@@ -149,7 +149,7 @@ int tarencrypt(int argc, char **argv)
 
     setpaxvar(&(gh.xheader), &(gh.xheaderlen), "TC.version", "1", 1);
     if (numkeys > 1) {
-	strncpya0(&numkeys_string, itoa(itoabuf1, numkeys), 0);
+	strncpya0(&numkeys_string, itoa_(itoabuf1, numkeys), 0);
 	setpaxvar(&(gh.xheader), &(gh.xheaderlen), "TC.numkeys", numkeys_string, strlen(numkeys_string));
 	numkeys_string[0] = '\0';
 	for (keynum = 0; keynum < numkeys; keynum++) {
@@ -166,10 +166,10 @@ int tarencrypt(int argc, char **argv)
 	    setpaxvar(&(gh.xheader), &(gh.xheaderlen), paxhdr_varstring, keys[keynum].comment, strlen(keys[keynum].comment));
 	    EVP_DecodeBlock(keys[keynum].hmac_key, (unsigned char *) keys[keynum].hmac_key_b64, 44);
 	    if (numkeys_string[0] == '\0')
-		strncpya0(&numkeys_string, itoa(itoabuf1, keynum), 0);
+		strncpya0(&numkeys_string, itoa_(itoabuf1, keynum), 0);
 	    else {
 		strcata(&numkeys_string, "|");
-		strcata(&numkeys_string, itoa(itoabuf1, keynum));
+		strcata(&numkeys_string, itoa_(itoabuf1, keynum));
 	    }
 	    free(pubkey_fp);
 	}
@@ -224,7 +224,7 @@ int tarencrypt(int argc, char **argv)
 		setpaxvar(&(gh2.xheader), &(gh2.xheaderlen), "TC.version", "1", 1);
 
 		char paxhdr_varstring[512];
-		strncpya0(&numkeys_string, itoa(itoabuf1, numkeys + numkeys_in), 0);
+		strncpya0(&numkeys_string, itoa_(itoabuf1, numkeys + numkeys_in), 0);
 		setpaxvar(&(gh2.xheader), &(gh2.xheaderlen), "TC.numkeys", numkeys_string, strlen(numkeys_string));
 		numkeys_string[0] = '\0';
 		for (keynum = 0; keynum < numkeys; keynum++) {
@@ -241,10 +241,10 @@ int tarencrypt(int argc, char **argv)
 		    setpaxvar(&(gh2.xheader), &(gh2.xheaderlen), paxhdr_varstring, keys[keynum].comment, strlen(keys[keynum].comment));
 		    EVP_DecodeBlock(keys[keynum].hmac_key, (unsigned char *) keys[keynum].hmac_key_b64, 44);
 		    if (keynum == 0)
-			strncpya0(&keygroups_string, itoa(itoabuf1, keynum), 0);
+			strncpya0(&keygroups_string, itoa_(itoabuf1, keynum), 0);
 		    else {
 			strcata(&keygroups_string, "|");
-			strcata(&keygroups_string, itoa(itoabuf1, keynum));
+			strcata(&keygroups_string, itoa_(itoabuf1, keynum));
 		    }
 		    free(pubkey_fp);
 		}
@@ -308,10 +308,10 @@ int tarencrypt(int argc, char **argv)
 
 		    /*
 		    if (i == keynum)
-			strcata(&keygroups_string, itoa(itoabuf1, keynum));
+			strcata(&keygroups_string, itoa_(itoabuf1, keynum));
 		    else {
 			strcata(&keygroups_string, "|");
-			strcata(&keygroups_string, itoa(itoabuf1, i));
+			strcata(&keygroups_string, itoa_(itoabuf1, i));
 		    }
 		    */
 		}
@@ -855,7 +855,7 @@ int tardecrypt(int argc, char **argv)
     return(0);
 }
 
-char *itoa(char *s, int n)
+char *itoa_(char *s, int n)
 {
     sprintf(s, "%d", n);
     return(s);
