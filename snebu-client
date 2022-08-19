@@ -31,7 +31,7 @@ process_cmdline()
     then
         target=validate
         shift
-    elif [ "$1" == "listbackups" ]
+    elif [ "$1" == "listbackups" ] || [ "$1" == "list" ]
     then
         target=listbackups
         shift
